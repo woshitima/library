@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Books</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='lib.jpg') }}" type="image/x-icon">
 </head>
 <body>
-    <a href="/authors">Аuthors</a>
+    <a href="/authors">Authors</a>
     <a href="/books">Books</a>
-    <h1 style="color: red">Here will be books list:</h1>
+    <h1 style="color: grey">Here will be a list of books:</h1>
     {% for object in object_list %}
-        <h2><a href="{{ url_for ('book', num = loop.index - 1) }}">
-            {{ object.0 }} - {{ object.1 }}
+        <h2>
+            <a href="{{ url_for('book', num=loop.index-1) }}">
+                {{ object.0 }} - {{ object.1 }}
             </a>
         </h2>
     {% endfor %}
