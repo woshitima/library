@@ -29,12 +29,6 @@ def authors():
         "authors.html", authors = list(authors)
     )
 
-@app.route("/authors/")
-def count():
-    excel = load_workbook("tales.xlsx")
-    page = excel["Sheet"]
-    count = {}
-
 @app.route("/add/", methods = ["POST"])
 def add():
     f = request.form
