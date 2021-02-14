@@ -7,6 +7,11 @@ app = Flask(__name__)
 def homepage():
     return render_template("index.html")
 
+
+@app.route("/us/")
+def info():
+    return render_template("aboutus.html")
+
 @app.route("/books/")
 def books():
     excel = load_workbook("tales.xlsx")
@@ -23,6 +28,12 @@ def authors():
     return render_template(
         "authors.html", authors = list(authors)
     )
+
+@app.route("/authors/")
+def count():
+    excel = load_workbook("tales.xlsx")
+    page = excel["Sheet"]
+    count = {}
 
 @app.route("/add/", methods = ["POST"])
 def add():
