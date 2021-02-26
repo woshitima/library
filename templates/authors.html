@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='mystyle.css') }}">
     <style>
-        body { background: url(https://miro.medium.com/max/11914/0*nkMHIYllnotYcos_);}
+        body { background: url(https://miro.medium.com/max/11914/0*nkMHIYllnotYcos_); height:900px;}
     </style>
 </head>
 <body>
@@ -38,7 +38,7 @@
             
         {% for author in authors %}
             <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
-                {{ author }}
+                {{ author.0 }}
             </a>
         {% endfor %}
         </div>
@@ -55,7 +55,7 @@
             <tbody style="color: white">
                 {% for author in authors %}
                     <tr>
-                        <td>{{ author }}</td>
+                        <td>{{ author.author }}</td>
                         <td>1</td>
                     </tr>
                 {% endfor %}

@@ -2,8 +2,11 @@ from flask import Flask, render_template, request
 from openpyxl import load_workbook
 from sqlalchemy.orm.session import sessionmaker
 from database import engine, Book
+from sqlalchemy.orm import scoped_session
 
 app = Flask(__name__)
+
+db = scoped_session(sessionmaker(bind = engine)) #лучше использовать внутри функции
 
 @app.route("/")
 def homepage():
@@ -35,9 +38,14 @@ def books():
 
 @app.route("/authors/")
 def authors():
-    excel = load_workbook("tales.xlsx")
-    page = excel["Sheet"]
-    authors = {author.value for author in page["B"][1:]}
+    # v_1
+    # excel = load_workbook("tales.xlsx")
+    # page = excel["Sheet"]
+    # authors = {author.value for author in page["B"][1:]}
+
+    with engine.connect() as con:
+        authors = con.execute("""SELECT DISTINCT author FROM "Book";""")
+
     return render_template(
         "authors.html", authors = list(authors)
     )
@@ -45,12 +53,24 @@ def authors():
 @app.route("/add/", methods = ["POST"])
 def add():
     f = request.form
-    excel = load_workbook("tales.xlsx")
-    page = excel["Sheet"]
-    last = len(page["A"]) + 1
-    page[f"A{last}"] = f["book"]
-    page[f"B{last}"] = f["author"]
-    excel.save("tales.xlsx")
+    # v_1
+    # excel = load_workbook("tales.xlsx")
+    # page = excel["Sheet"]
+    # last = len(page["A"]) + 1
+    # page[f"A{last}"] = f["book"]
+    # page[f"B{last}"] = f["author"]
+    # excel.save("tales.xlsx")
+    book = f["book"]
+    author = f["author"]
+    # url = f["url"]
+    ids = db.execute('SELECT id FROM "Book" ORDER BY id DESC;')
+    max_id = ids.first().id
+    c_id = max_id + 1
+
+    with engine.connect() as con:
+        add = con.execute(f"""
+        INSERT INTO "Book" (id, name, author) 
+        VALUES ({c_id}, '{book}', '{author}');""")
     return "Form Accepted!"
 
 @app.route("/book/<num>/")
