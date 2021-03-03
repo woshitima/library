@@ -9,7 +9,7 @@
 </head>
 <body>
     <style>
-        body { background: url(https://miro.medium.com/max/11914/0*nkMHIYllnotYcos_); height:900px;}
+        body { background: url(https://miro.medium.com/max/11914/0*nkMHIYllnotYcos_); height:730px;}
     </style>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <ul class="navbar-nav">
@@ -26,17 +26,19 @@
                 <a class="nav-link" href="{{ url_for('info')}}">About Us</a>
             </li>
         </ul>
+        <form>
+            <input type = "text" name = "key_word"><button>Search</button>
+        </form>
     </nav>
     
-    <h1 style="color: white">List of books:</h1>
+    <h3 style="color: white">List of books:</h3>
     <div>
     {% for object in object_list %}
-        <h2>
-            <a href="{{ url_for('book', num=loop.index-1) }}">
+        <h5>
+            <a href="{{ url_for('db_book', id=object.id) }}">
                 {{ object.name }} - {{ object.author }}
             </a>
-        </h2>
+        </h5>
     {% endfor %}
-    </div>
 </body>
 </html>

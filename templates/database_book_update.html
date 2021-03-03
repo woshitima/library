@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +12,7 @@
 </head>
 <body>
     <style>
-        body { background: url(https://miro.medium.com/max/11914/0*nkMHIYllnotYcos_);}
+        body { background: url(https://miro.medium.com/max/11914/0*nkMHIYllnotYcos_); height:720px;}
     </style>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <ul class="navbar-nav">
@@ -29,21 +30,16 @@
             </li>
         </ul>
     </nav>
-    <div class="container-fluid">
-        <a href="{{ url_for('authors') }}">Authors</a>
-        <a id="book" href="{{ url_for('books') }}">Books</a>
-        <hr>
-        <div class="container">
-            <h2>{{ obj.0 }}</h2>
-            <h5>{{ obj.1 }}</h5>
-            
-            {% if obj.2 %}
-                <img src="{{ obj.2 }}" alt="tale_photo">
-            {% endif %}
-            <br><br>
-            <a class="btn btn-warning btn-lg" href="{{ url_for('book_edit', num=obj.3) }}">Edit</a>
-            <br><br>
-        </div>
-    </div>
+    <h4 style="color: white">Edit Data:</h4>
+    <form method="POST">
+        <input type="text" name="tale" placeholder="Book's name" value="{{ book_object.name }}">
+        <br><br>
+        <input type="text" name="author" placeholder="Author" value="{{ book_object.author }}">
+        <br><br>
+        <input type="text" name="image" placeholder="Link to the picture" value="{{ book_object.image }}">
+        <br><br>
+        <button class="btn btn-info">Save</button>
+    </form>
+    <h3 class="text-success">{{ message }}</h3>
 </body>
 </html>
