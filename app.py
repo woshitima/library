@@ -74,22 +74,21 @@ def add():
     db.execute(f'''
         INSERT INTO "Book" (id, name, author, image)
         VALUES ({c_id}, '{book}', '{author}', '{url}');''')
-    
     db.commit()
 
     message = "Form Received!"
-
+    
     return render_template("index.html", message = message)
 
 
-@app.route("/book/<num>/") # 5
-def book(num): # 5
+@app.route("/book/<num>/")
+def book(num):
     excel = load_workbook("tales.xlsx")
     page = excel["Sheet"]
     object_list = [[tale.value, tale.offset(column=1).value, tale.offset(column=2).value] for tale in page["A"][1:]]
-    obj = object_list[int(num)] # object_list[5]
+    obj = object_list[int(num)]
     obj.append(num)
-    return render_template("book.html", obj=obj) # **kwargs
+    return render_template("book.html", obj=obj)
 
 
 @app.route("/db/book/<id>/")

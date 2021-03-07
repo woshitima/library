@@ -38,7 +38,7 @@
             
         {% for author in authors %}
             <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
-                {{ author }}
+                {{ author.author }}
             </a>
         {% endfor %}
         </div>
@@ -55,7 +55,7 @@
             <tbody>
                 {% for author in authors %}
                     <tr>
-                        <td>{{ author }}</td>
+                        <td>{{ author.author }}</td>
                         <td>1</td>
                     </tr>
                 {% endfor %}
